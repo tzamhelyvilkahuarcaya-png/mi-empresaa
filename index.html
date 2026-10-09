@@ -268,6 +268,131 @@
         </p>
     </footer>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script type="text/javascript">
+
+    // Inicializa EmailJS con tu Public Key
+
+    emailjs.init("1q4EckB625-SAAsaI"); 
+
+  </script>
+    <script>
+
+    // Pega aquí la URL exacta que te dio Google Apps Script al desplegar
+
+    const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1oHK8fu6sMbcnhtftSgz9_ILBDNGihoftO708gHi074rD2_7pnrLV1-T-1KYvzRt9/exec"; 
+
+
+
+    const form = document.getElementById('contact-form');
+
+    const statusMessage = document.getElementById('status-message');
+
+    const submitBtn = document.getElementById('submit-btn');
+
+
+
+    form.addEventListener('submit', async function(event) {
+
+      event.preventDefault();
+
+      
+
+      submitBtn.disabled = true;
+
+      submitBtn.textContent = "Enviando...";
+
+      statusMessage.style.color = "#f39c12"; // Color ámbar de tu marca
+
+      statusMessage.textContent = "Guardando en Google Sheets...";
+
+
+
+      // Recopilamos los datos del formulario
+
+      const formData = {
+
+        nombre: document.getElementById('nombre').value,
+
+        email: document.getElementById('email').value,
+
+        asunto: document.getElementById('asunto').value,
+
+        mensaje: document.getElementById('mensaje').value
+
+      };
+
+
+
+      try {
+
+        // PASO 1: Guardar primero en Google Sheets
+
+        await fetch(SHEET_WEB_APP_URL, {
+
+          method: 'POST',
+
+          mode: 'no-cors', // Obligatorio para conectar el navegador con Google Apps Script
+
+          headers: {
+
+            'Content-Type': 'application/json'
+
+          },
+
+          body: JSON.stringify(formData)
+
+        });
+
+
+
+        console.log('Datos guardados en Google Sheets con éxito');
+
+        statusMessage.textContent = "Enviando correo de notificación...";
+
+
+
+        // PASO 2: Enviar el correo electrónico mediante EmailJS
+
+        await emailjs.sendForm('service_kt6q4rc', 'template_bpbhwb5', this);
+
+
+
+        console.log('Correo enviado con éxito por EmailJS');
+
+
+
+        // Éxito en todo el proceso
+
+        statusMessage.style.color = "#2ecc71"; // Verde éxito
+
+        statusMessage.textContent = "¡Mensaje enviado y guardado correctamente!";
+
+        form.reset();
+
+
+
+      } catch (error) {
+
+        console.error('Error en el proceso:', error);
+
+        statusMessage.style.color = "#e74c3c"; // Rojo error
+
+        statusMessage.textContent = "Hubo un error al procesar tu solicitud. Inténtalo de nuevo.";
+
+      } finally {
+
+        submitBtn.disabled = false;
+
+        submitBtn.textContent = "Enviar Mensaje";
+
+      }
+
+    });
+
+  </script>
+
     <script src="script.js"></script>
 
 </body>
