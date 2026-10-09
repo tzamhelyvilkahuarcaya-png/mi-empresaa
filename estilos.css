@@ -1,0 +1,515 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080d1a;
+    color: white;
+}
+
+/* MENÚ */
+
+.encabezado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(8, 13, 26, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+.menu {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.menu-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.menu-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.menu-links a:hover {
+    color: #4ade80;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* HERO (Video totalmente claro y visible) */
+
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.video-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.capa {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 13, 26, 0.25); /* Capa ligera para que el video se vea nítido */
+    z-index: 2;
+}
+
+.hero-contenido {
+    position: relative;
+    z-index: 3;
+    max-width: 850px;
+    padding: 20px;
+    text-align: center;
+}
+
+.etiqueta {
+    margin-bottom: 15px;
+    color: #4ade80;
+    font-size: 14px;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-contenido h1 {
+    margin-bottom: 20px;
+    font-size: 60px;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.8);
+}
+
+.hero-contenido p:not(.etiqueta) {
+    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 1.6;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* BOTONES */
+
+.boton {
+    display: inline-block;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background: #e11d48; /* Rojo vibrante del logo */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(225, 29, 72, 0.4);
+}
+
+.boton:hover {
+    background: #be123c;
+    transform: translateY(-3px);
+}
+
+/* SECCIONES GENERALES */
+
+.seccion {
+    padding: 110px 20px;
+}
+
+.contenedor {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.seccion h2 {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 42px;
+}
+
+.subtitulo {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #38bdf8;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.descripcion {
+    max-width: 700px;
+    margin: 0 auto 45px;
+    text-align: center;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* VIDEOS */
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.video-card {
+    overflow: hidden;
+    background: #111a33;
+    border-radius: 16px;
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-top: 4px solid #38bdf8;
+}
+
+.video-card:hover {
+    transform: translateY(-8px);
+}
+
+.video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: black;
+}
+
+.video iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+}
+
+.video-info {
+    padding: 22px;
+}
+
+.video-info h3 {
+    margin-bottom: 10px;
+    font-size: 21px;
+}
+
+.video-info p {
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+/* SERVICIOS / CONTENIDO */
+
+.contenido {
+    background: #0c1428;
+}
+
+.contenido-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 45px;
+}
+
+.tarjeta {
+    display: block;
+    text-decoration: none;
+    padding: 25px;
+    background: #111a33;
+    border-radius: 16px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-top: 4px solid #e11d48;
+}
+
+.tarjeta:hover {
+    transform: translateY(-8px);
+}
+
+.imagen-servicio {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.tarjeta h3 {
+    margin: 15px 0 10px;
+    color: white;
+    font-size: 20px;
+}
+
+.tarjeta p {
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* NOSOTROS */
+
+.nosotros {
+    background: #080d1a;
+}
+
+.nosotros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.nosotros-imagen img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 3px solid #38bdf8;
+}
+
+.nosotros-texto h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.nosotros-texto > p {
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.nosotros-mision-vision {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.nosotros-mision-vision h3 {
+    color: #4ade80;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.nosotros-mision-vision p {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* CONTACTO Y UBICACIÓN (En azul marino elegante con detalles de color) */
+
+.contacto {
+    background: #0c1428;
+}
+
+.contacto-superior-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.contacto-info-caja {
+    background: #111a33; /* Azul marino limpio y profesional */
+    padding: 30px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid #4ade80; /* Toque verde del letrero */
+}
+
+.contacto-info-caja h3 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+    padding-bottom: 8px;
+}
+
+.info-item {
+    margin-bottom: 15px;
+}
+
+.info-item h4 {
+    color: #38bdf8;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.info-item p {
+    color: #cbd5e1;
+    font-size: 15px;
+}
+
+.contacto-link {
+    color: #4ade80;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contacto-link:hover {
+    text-decoration: underline;
+}
+
+.contacto-formulario {
+    background: #111a33; /* Azul marino limpio y profesional */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid #e11d48; /* Toque rojo del letrero */
+}
+
+.contacto-formulario h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: white;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+    padding-bottom: 8px;
+}
+
+.contacto-formulario label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #38bdf8;
+    font-size: 14px;
+}
+
+.contacto-formulario input,
+.contacto-formulario textarea {
+    width: 100%;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: #080d1a; /* Fondo interno oscuro para los campos */
+    color: white;
+    font-size: 14px;
+}
+
+.contacto-formulario textarea {
+    resize: none;
+    height: 85px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #64748b;
+}
+
+.ubicacion-inferior {
+    background: #111a33; /* Azul marino limpio y profesional */
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-top: 5px solid #38bdf8; /* Toque azul/celeste */
+}
+
+.ubicacion-inferior h3 {
+    color: white;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.ubicacion-inferior > p {
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.mapa-completo {
+    width: 100%;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 30px;
+    background: #050811;
+    color: #64748b;
+    text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .menu-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px;
+        background: #080d1a;
+        text-align: center;
+    }
+
+    .menu-links.activo {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .hero-contenido h1 {
+        font-size: 38px;
+    }
+
+    .videos-grid,
+    .contenido-grid,
+    .nosotros-grid,
+    .contacto-superior-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nosotros-mision-vision {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion {
+        padding: 80px 20px;
+    }
+}
