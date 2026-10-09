@@ -217,68 +217,49 @@
                         </div>
                     </div>
 
+                    <!-- Formulario -->
                     <div class="contacto-formulario">
-    <form id="contact-form">
-        <h3>Envíanos un mensaje</h3>
+                        <form id="contact-form">
+                            <h3>Envíanos un mensaje</h3>
 
-```
-    <label for="nombre">Nombre completo</label>
-    <input
-        type="text"
-        id="nombre"
-        name="nombre"
-        placeholder="Ej. Juan Pérez"
-        required>
+                            <label for="nombre">Nombre completo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
 
-    <label for="email">Correo electrónico</label>
-    <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Ej. tu_correo@gmail.com"
-        required>
+                            <label for="email">Correo electrónico</label>
+                            <input type="email" id="email" name="email" placeholder="Ej. tu_correo@gmail.com" required>
 
-    <label for="asunto">Asunto</label>
-    <input
-        type="text"
-        id="asunto"
-        name="asunto"
-        placeholder="Ej. Cotización de volantes"
-        required>
+                            <label for="asunto">Asunto</label>
+                            <input type="text" id="asunto" name="asunto" placeholder="Ej. Cotización de volantes" required>
 
-    <label for="mensaje">Mensaje</label>
-    <textarea
-        id="mensaje"
-        name="mensaje"
-        placeholder="Escribe aquí los detalles de tu mensaje..."
-        rows="4"
-        required></textarea>
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" placeholder="Escribe aquí los detalles de tu mensaje..." rows="4" required></textarea>
 
-    <button
-        type="submit"
-        id="submit-btn"
-        class="boton"
-        style="width: 100%; margin-top: 5px;">
-        Enviar mensaje
-    </button>
+                            <button type="submit" id="submit-btn" class="boton" style="width: 100%; margin-top: 5px;">
+                                Enviar mensaje
+                            </button>
 
-    <p id="status-message" role="status"></p>
-</form>
-```
+                            <p id="status-message" role="status"></p>
+                        </form>
+                    </div>
 
-</div>
-
+                </div>
 
                 <!-- PARTE INFERIOR: Dónde estamos ubicados y el Mapa -->
-                <div class="ubicacion-inferior">
+                <div class="ubicacion-inferior" style="margin-top: 40px;">
                     <h3>¿Dónde estamos ubicados?</h3>
                     <p>Encuéntranos fácilmente en nuestro taller principal en Satipo.</p>
-                    <div class="mapa-completo">
+                    
+                    <div class="mapa-completo" style="position: relative;">
+                        <!-- Botón flotante para abrir en Google Maps -->
+                        <a href="https://maps.google.com/?q=Satipo" target="_blank" class="btn-abrir-maps" style="position: absolute; top: 15px; left: 15px; background-color: #ffffff; color: #1f2937; padding: 8px 14px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); z-index: 10;">
+                            Abrir en Maps ↗
+                        </a>
+
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3880.0!2d-74.63!3d-11.25!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHorDE1JzAwLjAiUyA3NMKwMzcnNDguMCJX!5e0!3m2!1ses!2spe!4v1600000000000!5m2!1ses!2spe" 
                             width="100%" 
                             height="350" 
-                            style="border:0; border-radius: 12px;" 
+                            style="border:0; border-radius: 12px; display: block;" 
                             allowfullscreen="" 
                             loading="lazy">
                         </iframe>
@@ -296,130 +277,70 @@
         </p>
     </footer>
 
+    <!-- Scripts de EmailJS y lógica de envío -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <script type="text/javascript">
+    <script type="text/javascript">
+      // Inicializa EmailJS con tu Public Key
+      emailjs.init("1q4EckB625-SAAsaI"); 
+    </script>
 
-    // Inicializa EmailJS con tu Public Key
-
-    emailjs.init("1q4EckB625-SAAsaI"); 
-
-  </script>
     <script>
-
-    // Pega aquí la URL exacta que te dio Google Apps Script al desplegar
-
-    const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1oHK8fu6sMbcnhtftSgz9_ILBDNGihoftO708gHi074rD2_7pnrLV1-T-1KYvzRt9/exec"; 
-
-
-
-    const form = document.getElementById('contact-form');
-
-    const statusMessage = document.getElementById('status-message');
-
-    const submitBtn = document.getElementById('submit-btn');
-
-
-
-    form.addEventListener('submit', async function(event) {
-
-      event.preventDefault();
-
-      
-
-      submitBtn.disabled = true;
-
-      submitBtn.textContent = "Enviando...";
-
-      statusMessage.style.color = "#f39c12"; // Color ámbar de tu marca
-
-      statusMessage.textContent = "Guardando en Google Sheets...";
-
-
-
-      // Recopilamos los datos del formulario
-
-      const formData = {
-
-        nombre: document.getElementById('nombre').value,
-
-        email: document.getElementById('email').value,
-
-        asunto: document.getElementById('asunto').value,
-
-        mensaje: document.getElementById('mensaje').value
-
-      };
-
-
-
-      try {
-
-        // PASO 1: Guardar primero en Google Sheets
-
-        await fetch(SHEET_WEB_APP_URL, {
-
-          method: 'POST',
-
-          mode: 'no-cors', // Obligatorio para conectar el navegador con Google Apps Script
-
-          headers: {
-
-            'Content-Type': 'application/json'
-
-          },
-
-          body: JSON.stringify(formData)
-
-        });
-
-
-
-        console.log('Datos guardados en Google Sheets con éxito');
-
-        statusMessage.textContent = "Enviando correo de notificación...";
-
-
-
-        // PASO 2: Enviar el correo electrónico mediante EmailJS
-
-        await emailjs.sendForm('service_kt6q4rc', 'template_bpbhwb5', this);
-
-
-
-        console.log('Correo enviado con éxito por EmailJS');
-
-
-
-        // Éxito en todo el proceso
-
-        statusMessage.style.color = "#2ecc71"; // Verde éxito
-
-        statusMessage.textContent = "¡Mensaje enviado y guardado correctamente!";
-
-        form.reset();
-
-
-
-      } catch (error) {
-
-        console.error('Error en el proceso:', error);
-
-        statusMessage.style.color = "#e74c3c"; // Rojo error
-
-        statusMessage.textContent = "Hubo un error al procesar tu solicitud. Inténtalo de nuevo.";
-
-      } finally {
-
-        submitBtn.disabled = false;
-
-        submitBtn.textContent = "Enviar Mensaje";
-
-      }
-
-    });
-
-  </script>
+      const SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyaFi596q0YZUUwpcppLOHEB8xJEbjUaWKNVzgTUE7iWIsNFSggIqCIZvKthcoQq80GCA/exec"; 
+
+      const form = document.getElementById('contact-form');
+      const statusMessage = document.getElementById('status-message');
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Enviando...";
+        statusMessage.style.color = "#f39c12"; 
+        statusMessage.textContent = "Guardando en Google Sheets...";
+
+        const valorCorreo = document.getElementById('email').value;
+        
+        const formData = {
+          nombre: document.getElementById('nombre').value,
+          email: valorCorreo,   
+          correo: valorCorreo,  
+          asunto: document.getElementById('asunto').value,
+          mensaje: document.getElementById('mensaje').value
+        };
+
+        try {
+          await fetch(SHEET_WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+
+          console.log('Datos guardados en Google Sheets con éxito');
+          statusMessage.textContent = "Enviando correo de notificación...";
+
+          await emailjs.send('service_kt6q4rc', 'template_bpbhwb5', formData);
+
+          console.log('Correo enviado con éxito por EmailJS');
+
+          statusMessage.style.color = "#2ecc71"; 
+          statusMessage.textContent = "¡Mensaje enviado y guardado correctamente!";
+          form.reset();
+
+        } catch (error) {
+          console.error('Error en el proceso:', error);
+          statusMessage.style.color = "#e74c3c"; 
+          statusMessage.textContent = "Hubo un error al procesar tu solicitud. Inténtalo de nuevo.";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Enviar Mensaje";
+        }
+      });
+    </script>
 
     <script src="script.js"></script>
 
